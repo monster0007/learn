@@ -19,7 +19,7 @@ object WaterMarkTest {
     env.getConfig.setAutoWatermarkInterval(5000)
 
     //source
-    val stream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\flinkLearn\\src\\main\\resources\\sensor.txt")
+    val stream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_learn\\src\\main\\resources\\sensor.txt")
         .map(data => {
           val dataArry = data.split(",")
           SensorReading(dataArry(0).trim,dataArry(1).trim.toLong,dataArry(2).trim.toDouble)

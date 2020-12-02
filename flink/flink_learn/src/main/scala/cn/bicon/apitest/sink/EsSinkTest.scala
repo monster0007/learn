@@ -19,7 +19,7 @@ object EsSinkTest{
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     //source
-    val dataStream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\flinkLearn\\src\\main\\resources\\sensor.txt")
+    val dataStream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_learn\\src\\main\\resources\\sensor.txt")
 
     //transform
     val outStream = dataStream.map(data => {

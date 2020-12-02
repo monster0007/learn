@@ -33,7 +33,7 @@ object SourceTest{
     //env.fromElements(1,2,3,"string").print()
 
     //2.从文件中读取数据
-    val stream2 = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\flinkLearn\\src\\main\\resources\\sensor.txt")
+    val stream2 = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_learn\\src\\main\\resources\\sensor.txt")
 
     stream2.print("stream2").setParallelism(1)
 

@@ -12,7 +12,7 @@ object SinkTest {
 
     val env = StreamExecutionEnvironment.getExecutionEnvironment
     env.setParallelism(1)
-    val inputstream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\flinkLearn\\src\\main\\resources\\sensor.txt")
+    val inputstream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_learn\\src\\main\\resources\\sensor.txt")
 
     val outstream = inputstream.map(data => {
       val dataArray = data.split(",")

@@ -24,7 +24,7 @@ object WindowRollTest {
 
 
     //source
-    // val stream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\flinkLearn\\src\\main\\resources\\sensor.txt")
+    // val stream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_learn\\src\\main\\resources\\sensor.txt")
     var stream = env.socketTextStream("bd134",6666)
     stream.print("input")
     // transform
