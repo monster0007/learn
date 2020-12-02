@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>userBahaviorAnalysis</module>
+        <module>networkFlowAnalysis</module>
     </modules>
     <properties>
     <flink.version>1.7.2</flink.version>
