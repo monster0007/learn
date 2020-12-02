@@ -60,3 +60,7 @@ project/plugins/project/
 .cache
 .lib/
 
+flink/flink_learn/src/main/java/
+flink/flink_learn/src/main/resources/
+flink/flink_learn/src/test/
+flink/flink_practices/userBahaviorAnalysis/hotItemAnalysis/src/test/
