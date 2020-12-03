@@ -133,7 +133,6 @@ class TopNNetworkFlow(topN: Int) extends KeyedProcessFunction[Long,UrlViewCount,
     listState.clear()
     //排序取出topN
     val viewCounts = listBuffer.sortBy(_.count)(Ordering.Long.reverse).take(topN)
-    listBuffer.sorted(Ordering.Long.reverse)
     //listBuffer.sortWith(_.count > _.count).take(topN)
 
     val stringBuilder = new StringBuilder()
