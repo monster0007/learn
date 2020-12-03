@@ -40,9 +40,10 @@ object TransformTest {
     //all.print("all")
 
     //3.connect 和Comap  合流
+    //Connect可以只能用来合并两种不同类型的流。
     val warning = highStream.map(data => (data.id,data.temperature))
     val connectedStream = warning.connect(lowStream)
-
+    //Comap 用来处理两种不同的流操作
     val coMapDataStream = connectedStream.map(
       waringData => (waringData._1,waringData._2,"warning"),
       lowData => (lowData.id,"healthy")

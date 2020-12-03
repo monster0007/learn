@@ -21,13 +21,31 @@ import scala.collection.mutable.ListBuffer
   * @program: learn
   * @author: shiyu
   * @create: 2020-12-02 17:28
-*          实时流量统计
-*          我们在这里先实现“热门页面浏览数”的统计，也就是读取服务器日志中的每
-*          一行 log，统计在一段时间内用户访问每一个 url 的次数，然后排序输出显示。
-*          具体做法为：每隔 5 秒，输出最近 10 分钟内访问量最多的前 N 个 URL。可以
-*          看出，这个需求与之前“实时热门商品统计”非常类似，所以我们完全可以借鉴此
-*          前的代码。
-  **/
+  *          实时流量统计
+  *          我们在这里先实现“热门页面浏览数”的统计，也就是读取服务器日志中的每
+  *          一行 log，统计在一段时间内用户访问每一个 url 的次数，然后排序输出显示。
+  *          具体做法为：每隔 5 秒，输出最近 10 分钟内访问量最多的前 N 个 URL。可以
+  *          看出，这个需求与之前“实时热门商品统计”非常类似，所以我们完全可以借鉴此
+  *          前的代码。
+  *
+  *          技术实现:
+  *          step0.需要创建两个样例类
+  *           1.source 数据样例类
+  *           2.实时热门商品统计结果样例类
+  *          step1.source 读取数据
+  *          step2.transform 数据
+  *              1.将数据包装到样例类 设置watermark(无序)
+  *              2.根据url keyedBy
+  *              3.开窗timeWindows(10min,5s)
+  *              4.设置数据延迟时间allowLaterNess(60s)
+  *              5.聚合开窗结果aggregate(new AggCount(),new WindowResult() ) //并将数据穿度到下一个Stream
+  *              6.自定义AggCount统计数量
+  *              7.自定义WindowResult包装统计结果,至此完成所有窗口内从数据聚合
+  *              8.根据窗口结束时间再次做 keyedBy(_.windowEnd) 把相同的窗口数据聚合起来
+  *              9.process(new TopNHotItems(3)) ,自定义process 把不同窗口的数据排序(sortBy),取出topN(take)
+  *              10.自定义sink 把数据发送出去
+  */
+
 
 //日志样例类
 case class ApacheLogEvent(ip: String,userId : String,enventTime : Long,method : String,url : String)
@@ -117,6 +135,7 @@ class TopNNetworkFlow(topN: Int) extends KeyedProcessFunction[Long,UrlViewCount,
     listState.clear()
     //排序取出topN
     val viewCounts = listBuffer.sortBy(_.count)(Ordering.Long.reverse).take(topN)
+    listBuffer.sorted(Ordering.Long.reverse)
     //listBuffer.sortWith(_.count > _.count).take(topN)
 
     val stringBuilder = new StringBuilder()
