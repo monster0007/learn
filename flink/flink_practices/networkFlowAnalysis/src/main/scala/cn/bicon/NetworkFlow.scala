@@ -79,8 +79,6 @@ object NetworkFlow {
 
     sinkStream.print("networkflow")
 
-
-
     //execute
     env.execute("networkflow")
 
