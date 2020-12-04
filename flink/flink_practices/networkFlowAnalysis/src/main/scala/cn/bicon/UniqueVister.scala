@@ -15,7 +15,7 @@ import org.apache.flink.util.Collector
   * @create: 2020-12-03 10:58
   **/
 //case class UserBehavior(userId : Long,itemId : Long,categoryId : Int,behavior : String,timestamp : Long)
-case class UviewCount(serId : Timestamp,count: Long)
+case class UviewCount(serId : Long,count: Long)
 
 /**
   * 统计一小时的 用户点击量
@@ -50,7 +50,7 @@ class UvCountWindow() extends AllWindowFunction[UserBehavior,UviewCount,TimeWind
     for(u <- input){
       idSet += u.userId
     }
-    //
-    out.collect(UviewCount(new Timestamp(window.getEnd -1),idSet.size))
+    //out.collect(UviewCount(new Timestamp(window.getEnd -1),idSet.size))
+    out.collect(UviewCount(window.getEnd,idSet.size))
   }
 }
