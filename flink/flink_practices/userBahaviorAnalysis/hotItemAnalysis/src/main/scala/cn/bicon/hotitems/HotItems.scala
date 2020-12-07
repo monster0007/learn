@@ -23,6 +23,16 @@ case class UserBehavior(userId : Long,itemId : Long,categoryId : Int,behavior : 
 //热门商品
 case class ItemViewCount(itemId : Long,windowEnd : Long,count : Long)
 
+/**
+  * 案例1:实时统计热门商品
+  * 实时统计最近1小时的热门商品topN,每5分钟限时一次
+  *
+  * 技术实现 为什么要用两次keyBy
+  * 1.在agreegate 阶段已将将结果封装为 viewCount
+  * key理解为 每条数据都有的格式都为viewCount格式
+  * 所以要按照viewCount.widowEnd 进行keyBy 聚合
+  *
+  */
 object HotItems {
   def main(args: Array[String]): Unit = {
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -31,7 +41,6 @@ object HotItems {
 
     //source
     val dataStream = env.readTextFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\flink\\flink_practices\\userBahaviorAnalysis\\hotItemAnalysis\\src\\main\\resources\\UserBehavior.csv")
-     //dataStream.print("input")
     //transform
     val behaviorStream = dataStream
       .map(data => {
@@ -45,6 +54,7 @@ object HotItems {
       .aggregate(new CountAgg(), new WindowResult())//按照窗口聚合(12个窗口)
         .keyBy(_.windowEnd)//按照窗口分组
         .process(new TopNHotItems(3))
+
     behaviorStream.print("behaviorStream")
 
     //execute

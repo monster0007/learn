@@ -38,7 +38,7 @@ import scala.collection.mutable.ListBuffer
   *              2.根据url keyedBy
   *              3.开窗timeWindows(10min,5s)
   *              4.设置数据延迟时间allowLaterNess(60s)
-  *              5.聚合开窗结果aggregate(new AggCount(),new WindowResult() ) //并将数据穿度到下一个Stream
+  *              5.聚合开窗结果aggregate(new AggCount(),new WindowResult() ) //并将数据传度到下一个Stream
   *              6.自定义AggCount统计数量
   *              7.自定义WindowResult包装统计结果,至此完成所有窗口内从数据聚合
   *              8.根据窗口结束时间再次做 keyedBy(_.windowEnd) 把相同的窗口数据聚合起来

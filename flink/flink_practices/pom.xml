@@ -15,6 +15,7 @@
         <module>userBahaviorAnalysis</module>
         <module>networkFlowAnalysis</module>
         <module>marketAnalysis</module>
+        <module>loginFailDetect</module>
     </modules>
     <properties>
     <flink.version>1.7.2</flink.version>
@@ -40,6 +41,11 @@
     <artifactId>flink-connector-kafka_${scala.binary.version}</artifactId>
     <version>${flink.version}</version>
 </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId> <artifactId>flink-cep-scala_${scala.binary.version}</artifactId> <version>${flink.version}</version>
+        </dependency>
+
     </dependencies>
     <build>
     <plugins>
