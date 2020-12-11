@@ -16,6 +16,7 @@
         <module>networkFlowAnalysis</module>
         <module>marketAnalysis</module>
         <module>loginFailDetect</module>
+        <module>orcerPayDetect</module>
     </modules>
     <properties>
     <flink.version>1.7.2</flink.version>
