@@ -56,7 +56,8 @@ object FsOutputTest {
       ).inAppendMode()
       .createTemporaryTable("outTable")
 
-    tableRes.insertInto("outTable")
+    //1.11 executeInsert / 1.10.0 使用 insertInto
+    tableRes.executeInsert("outTable")
 
     //6 execute
     env.execute("table connect out put")
