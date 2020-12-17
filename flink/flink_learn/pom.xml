@@ -11,7 +11,9 @@
 
     <artifactId>flink_learn</artifactId>
     <properties>
-        <flink.version>1.7.2</flink.version>
+        <flink.version>1.11.1</flink.version>
+        <!--<flink.version>1.10.0</flink.version>-->
+       <!-- <flink.version>1.12.0</flink.version>-->
         <scala.version>2.11</scala.version>
     </properties>
 
@@ -50,35 +52,51 @@
             <version>${flink.version}</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-table -->
         <dependency>
             <groupId>org.apache.flink</groupId>
-            <artifactId>flink-table_2.11</artifactId>
+            <artifactId>flink-table</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <type>pom</type>
         </dependency>
 
 
-        <!-- &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.flink/flink-table-planner-blink &ndash;&gt;
-         <dependency>
+
+        <dependency>
              <groupId>org.apache.flink</groupId>
              <artifactId>flink-table-planner-blink_2.11</artifactId>
-             <version>1.11.1</version>
-             <scope>provided</scope>
+             <version>${flink.version}</version>
          </dependency>
-         &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.flink/flink-table-api-scala-bridge &ndash;&gt;
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
          <dependency>
              <groupId>org.apache.flink</groupId>
              <artifactId>flink-table-api-scala-bridge_2.11</artifactId>
-             <version>1.11.1</version>
+             <version>${flink.version}</version>
          </dependency>
-         &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.flink/flink-table-common &ndash;&gt;
          <dependency>
              <groupId>org.apache.flink</groupId>
              <artifactId>flink-table-common</artifactId>
-             <version>1.11.1</version>
-             <scope>provided</scope>
-         </dependency>-->
+             <version>${flink.version}</version>
+         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-csv -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-csv</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-json -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-json</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-jdbc -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -95,13 +113,13 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka-0.11_2.11</artifactId>
-            <version>1.7.2</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-jdbc_2.11</artifactId>
-            <version>1.11.2</version>
+            <version>1.11.0</version>
         </dependency>
 
         <dependency>
@@ -120,7 +138,7 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-elasticsearch7_2.11</artifactId>
-            <version>1.11.1</version>
+            <version>${flink.version}</version>
         </dependency>
 
         <dependency>
