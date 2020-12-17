@@ -1,17 +1,18 @@
-package cn.bicon.tableapitest
+package cn.bicon.tableapitest.sourceandsink
 
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api._
-//import org.apache.flink.table.api.scala._
-import org.apache.flink.table.api.bridge.scala._//flink 1.11.1import org.apache.flink.table.descriptors.Jsonimport org.apache.flink.table.api._
+import org.apache.flink.table.api.bridge.scala._
+import org.apache.flink.table.descriptors.{Elasticsearch, Json, Schema}// flink 1.11.1
+//import org.apache.flink.table.api.scala._// flink 1.10.0
 
-import org.apache.flink.table.descriptors.{Csv, FileSystem, Kafka, Schema}
 
 /**
- * @Author: shiyu
- * @Date: 2020/12/16 0016 17:16
- */
-object KafkaOutputTest {
+  * @program: learn
+  * @author: shiyu
+  * @create: 2020-12-17 09:48
+  **/
+object ESOutputTest {
   def main(args: Array[String]): Unit = {
     //1 创建流失处理执行环境
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -34,7 +35,7 @@ object KafkaOutputTest {
     //4. transform
     val tableRes = table
       .select('id, 'temp)
-      //.filter('id === "sensor_1")
+    //.filter('id === "sensor_1")
 
     //4.2 transform
     val aggRes = table
@@ -42,24 +43,25 @@ object KafkaOutputTest {
       .select('id, 'id.count as 'ct)
 
     //5. sink kafka
-    tableEnv.connect(new Kafka()
-      .version("0.11")//0.9 0.10 0.11+ 三个版本(版本写错可能会有数据类型转换异常!!!)
-      .topic("sink_kafka6")
-      .property("zookeeper.connect", "bd134:12181")
-      .property("bootstrap.servers", "bd134:19092")
-    )
-      .withFormat(new Csv())
+    tableEnv.connect(
+      new Elasticsearch()
+        .version("7")
+        .host("bd211",9200,"http")
+        .index("sink_es")
+        .documentType("temp")
+    ).inUpsertMode()
+      .withFormat(new Json())
       .withSchema(new Schema()
         .field("id",DataTypes.STRING())
-        .field("temp",DataTypes.DOUBLE())
+        .field("temp",DataTypes.BIGINT())
       )
-      .createTemporaryTable("KafkaOutTable")
+      .createTemporaryTable("Out2Es")
 
     //1.11 executeInsert / 1.10.0 使用 insertInto
-    tableRes.executeInsert("KafkaOutTable")
+    aggRes.executeInsert("Out2Es")
 
     //6 execute
-    env.execute("table connect output to kafka")
+    env.execute("table connect output to es")
 
   }
 }

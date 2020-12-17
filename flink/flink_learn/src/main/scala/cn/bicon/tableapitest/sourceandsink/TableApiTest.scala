@@ -1,11 +1,9 @@
-package cn.bicon.tableapitest
+package cn.bicon.tableapitest.sourceandsink
 
-import cn.bicon.apitest.source.SensorReading
-import org.apache.flink.api.scala.ExecutionEnvironment
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api._
-//import org.apache.flink.table.api.scala._//flink 1.10.0
-import org.apache.flink.table.api.bridge.scala._//flink 1.11.1import org.apache.flink.table.descriptors.Json
+import org.apache.flink.table.api.bridge.scala._// flink 1.11.1
+//import org.apache.flink.table.api.scala._// flink 1.10.0
 import org.apache.flink.table.descriptors.{Csv, Kafka, Schema}
 
 /**

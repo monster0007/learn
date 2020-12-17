@@ -1,3 +1,4 @@
+/*
 package cn.bicon.apitest.sink
 
 import java.sql.PreparedStatement
@@ -56,3 +57,4 @@ object ClickhouseSinkTest2 {
 
   }
 }
+*/

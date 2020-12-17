@@ -1,23 +1,16 @@
-package cn.bicon.tableapitest
+package cn.bicon.tableapitest.sourceandsink
 
 import org.apache.flink.streaming.api.scala._
 import org.apache.flink.table.api._
-//import org.apache.flink.table.api.scala._//flink 1.10.0
-
-import org.apache.flink.table.descriptors.FileSystem
-import org.apache.flink.table.api.bridge.scala._//flink 1.11.1import org.apache.flink.table.descriptors.Jsonimport org.apache.flink.table.api._
-import org.apache.flink.table.descriptors.{Csv, Schema}
+import org.apache.flink.table.api.bridge.scala._// flink 1.11.1
+//import org.apache.flink.table.api.scala._// flink 1.10.0
 
 /**
- * @Author: shiyu
- * @Date: 2020/12/16 0016 15:28
- * 案例:
- * 将数据从文件读取,transform之后再写入新的文件
- */
-case  class SensorReadingfs(id : String, timestamp : Long, temperature : Double)
-
-
-object FsOutputTest {
+  * @program: learn
+  * @author: shiyu
+  * @create: 2020-12-17 10:07
+  **/
+object MySQLOutputTest {
   def main(args: Array[String]): Unit = {
     //1 创建流失处理执行环境
     val env = StreamExecutionEnvironment.getExecutionEnvironment
@@ -40,32 +33,34 @@ object FsOutputTest {
     //4. transform
     val tableRes = table
       .select('id, 'temp)
-      .filter('id === "sensor_1")
+    //.filter('id === "sensor_1")
 
     //4.2 transform
     val aggRes = table
       .groupBy('id)
       .select('id, 'id.count as 'ct)
 
-    //5. sink
-    tableEnv.connect(new FileSystem().path( filePath + "out.txt"))
-      .withFormat(new Csv())
-      .withSchema(new Schema()
-        .field("id",DataTypes.STRING())
-        .field("temp",DataTypes.DOUBLE())
-      ).inAppendMode()
-      .createTemporaryTable("outTable")
+    //5. sink mysql
+    val sinkDDL =
+      """
+        |create table jdbcOutputTable(
+        |id varchar(20) not null,
+        |ct bigint not null
+        |) with (
+        |'connector.type' = 'jdbc',
+        |'connector.url' = 'jdbc:mysql://bd208:3306/test',
+        | 'connector.table' = 'sinktable',  -- required: jdbc table name
+        |'connector.driver' = 'com.mysql.jdbc.Driver',
+        |'connector.username' = 'root',
+        |'connector.password' = 'bicon@123'
+        |)
+      """.stripMargin
+   tableEnv.sqlUpdate(sinkDDL)// flink catalog 中注册表
 
     //1.11 executeInsert / 1.10.0 使用 insertInto
-    tableRes.executeInsert("outTable")
+    aggRes.executeInsert("jdbcOutputTable")
 
-    //6 execute
-    env.execute("table connect out put")
-
-
-
-
-
+    env.execute("out to mysql")
   }
 
 }
