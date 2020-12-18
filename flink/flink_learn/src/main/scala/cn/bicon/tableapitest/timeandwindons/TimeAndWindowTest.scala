@@ -61,6 +61,13 @@ object TimeAndWindowTest {
         .select('id,'id.count(),'tw.start(),'tw.end()).toAppendStream[Row]
       //.print("agg")
 
+    tableEvent
+      .window(Slide over 10.seconds() every 5.seconds()  on 'ts as 'tw)//按照时间语义进行开窗 滑动窗口
+      .groupBy('tw,'id)
+      .select('id,'id.count(),'tw.start(),'tw.end()).toAppendStream[Row]
+    //.print("agg")
+
+
     //1.2 table api over window 聚合操作
     tableEvent
         .window(Over partitionBy 'id orderBy 'ts preceding 2.rows as 'ow)

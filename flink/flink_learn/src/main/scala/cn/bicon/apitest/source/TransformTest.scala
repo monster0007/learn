@@ -45,8 +45,8 @@ object TransformTest {
     val connectedStream = warning.connect(lowStream)
     //Comap 用来处理两种不同的流操作
     val coMapDataStream = connectedStream.map(
-      waringData => (waringData._1,waringData._2,"warning"),
-      lowData => (lowData.id,"healthy")
+      waringData => (waringData._1,waringData._2,"warning"),//第一个流
+      lowData => (lowData.id,"healthy")//connect 后面的那个流
     )
 
     //coMapDataStream.print()

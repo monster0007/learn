@@ -33,7 +33,7 @@ object ProcessFunctionTest {
     //env.setStreamTimeCharacteristic(TimeCharacteristic.ProcessingTime)
     //source
     var stream = env.socketTextStream("bd134",6666)
-    stream.print("input")
+    //stream.print("input")
     // transform
     val dataStream = stream.map(data => {
       val dataArry = data.split(",")
@@ -47,17 +47,17 @@ object ProcessFunctionTest {
     val processedStream = dataStream
       .keyBy(_.id)
       .process(new TimeInCreAlter())
-    processedStream.print("processedStream")
+    //processedStream.print("processedStream")
 
     //案例2:温度变化差值 keyedProcessFunction
     val processStream2 = dataStream.keyBy(_.id)
       .process(new TempChangeAlter(10.0))
-    processStream2.print("TempChangeAlter")
+   // processStream2.print("TempChangeAlter")
 
     //案例2:温度变化差值 flatMap
     val flatMapStream = dataStream.keyBy(_.id)
       .flatMap(new TempChangeAlterFlatMap(10.0))
-    flatMapStream.print("flatMapStream")
+    //flatMapStream.print("flatMapStream")
 
     //案例2:温度变化差值 flatMapWithState
     val preocessStream3 = dataStream.keyBy(_.id)
@@ -68,7 +68,7 @@ object ProcessFunctionTest {
       case (input: SensorReading, lastTemp: Some[Double]) =>
         val diff = (input.temperature - lastTemp.get).abs
         if (diff > 10.0) {
-          (List((input.id, input.temperature.toDouble, lastTemp.get)), Some(input.temperature.toDouble))
+           (List((input.id, input.temperature.toDouble, lastTemp.get)), Some(input.temperature.toDouble))
         } else {
           (List.empty, Some(input.temperature.toDouble))
         }

@@ -42,7 +42,7 @@ object ESOutputTest {
       .groupBy('id)
       .select('id, 'id.count as 'ct)
 
-    //5. sink kafka
+    //5. sink elasticsearch
     tableEnv.connect(
       new Elasticsearch()
         .version("7")
