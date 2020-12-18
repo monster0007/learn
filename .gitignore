@@ -61,6 +61,8 @@ project/plugins/project/
 .lib/
 
 flink/flink_learn/src/main/java/
-flink/flink_learn/src/main/resources/
 flink/flink_learn/src/test/
 flink/flink_practices/userBahaviorAnalysis/hotItemAnalysis/src/test/
+flink/flink_practices/marketAnalysis/src/test/
+flink/flink_practices/networkFlowAnalysis/src/test/
+flink/flink_practices/userBahaviorAnalysis/loginFailedDetect/src/test/
