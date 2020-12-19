@@ -1,4 +1,4 @@
-package cn.bicon.test.distrbute
+package cn.bicon.test.sparkCore.distrbute
 
 import java.io.ObjectInputStream
 import java.net.ServerSocket
@@ -8,19 +8,21 @@ import java.net.ServerSocket
   * @author: shiyu
   * @create: 2020-12-18 16:46
   **/
-object Executor {
+object Executor2 {
   def main(args: Array[String]): Unit = {
-    val server = new ServerSocket(9999)
+    val server = new ServerSocket(8888)
     println("等待客户端连接")
 
     //等待连接
     val client = server.accept()
 
+
     val input = client.getInputStream
     val objInput = new ObjectInputStream(input)
     val task: SubTask = objInput.readObject().asInstanceOf[SubTask]
+
     val ints: List[Int] = task.compute
-    println("计算节点结果为[9999]:" + ints)
+    println("计算节点[8888]结果为:" + ints)
     input.close()
     objInput.close()
     /*

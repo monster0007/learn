@@ -1,4 +1,4 @@
-package cn.bicon.test.distrbute
+package cn.bicon.test.sparkCore.distrbute
 
 import java.io.ObjectOutputStream
 import java.net.Socket

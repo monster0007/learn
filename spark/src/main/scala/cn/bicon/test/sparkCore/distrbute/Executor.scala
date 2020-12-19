@@ -1,4 +1,4 @@
-package cn.bicon.test.standalong
+package cn.bicon.test.sparkCore.distrbute
 
 import java.io.ObjectInputStream
 import java.net.ServerSocket
@@ -16,13 +16,11 @@ object Executor {
     //等待连接
     val client = server.accept()
 
-
     val input = client.getInputStream
     val objInput = new ObjectInputStream(input)
-    val task: Task = objInput.readObject().asInstanceOf[Task]
-
-    val ints: List[Int] = task.compute()
-    println("计算节点结果为:" + ints)
+    val task: SubTask = objInput.readObject().asInstanceOf[SubTask]
+    val ints: List[Int] = task.compute
+    println("计算节点结果为[9999]:" + ints)
     input.close()
     objInput.close()
     /*

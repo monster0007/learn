@@ -1,4 +1,4 @@
-package cn.bicon.test.standalong
+package cn.bicon.test.sparkCore.standalong
 
 import java.io.ObjectOutputStream
 import java.net.Socket
