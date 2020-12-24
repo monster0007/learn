@@ -1,4 +1,4 @@
-package cn.bicon.test.sparkCore.rdd
+package cn.bicon.test.sparkCore.rddtransform
 
 import org.apache.hadoop.conf.Configuration
 import org.apache.spark.rdd.RDD
