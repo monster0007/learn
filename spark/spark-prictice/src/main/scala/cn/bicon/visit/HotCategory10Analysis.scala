@@ -65,7 +65,7 @@ object HotCategory10Analysis {
       cids.map(id => (id,1))
     }).reduceByKey(_+_)
 
-    //4.将统计结果进行分类 去top10
+    //4.将统计结果进行分类 top10
     //(品类,(点击,下单,支付))
     val analysiRDD:RDD[(String,(Iterable[Int],Iterable[Int],Iterable[Int]))]
             = clickCountRDD.cogroup(orderCountRDD,payCountRDD)

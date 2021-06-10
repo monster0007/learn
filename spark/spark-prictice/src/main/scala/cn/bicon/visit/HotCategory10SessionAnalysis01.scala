@@ -24,8 +24,13 @@ object HotCategory10Analysis02 {
     val sc = new SparkContext(sparkConf)
 
     val userVisitRDD = sc.textFile("D:\\softwaresetup\\IT\\workspace\\2020ideaworkspace\\learn\\spark\\spark-prictice\\src\\main\\resources\\user_visit_action.txt")
-    userVisitRDD.cache()
+    val top10Rdd = categoryTop10(userVisitRDD)
 
+
+
+  }
+
+  def categoryTop10(userVisitRDD: RDD[String]) ={
     //1.统计 (品类,点击次数)
     //一次下单多个商品 13,5,11
     val clickRDD = userVisitRDD.filter(acticon => {
@@ -102,8 +107,6 @@ object HotCategory10Analysis02 {
     //4.将统计结果进行分类 去top10
     //(品类,(点击,下单,支付))
 
-    analysiRDD.sortBy(_._2._1,false).take(10).foreach(println)
-
+    analysiRDD.sortBy(_._2._1,false).take(10)
   }
-
 }

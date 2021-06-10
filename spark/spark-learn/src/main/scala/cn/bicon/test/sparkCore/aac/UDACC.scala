@@ -50,13 +50,22 @@ object UDACC {
         var newmap = map1.getOrElse(m._1,0) + 1
         map1.update(m._1,newmap)
       })*/
-      map2.foreach{
+/*      map2.foreach{
         case (word,count) => {
           val ncnt = map1.getOrElse(word,0) + count
           map1.update(word,ncnt)
         }
-      }
+      }*/
+
+      map2.foldLeft(map1)(
+        (innerMap,kv) =>{
+          innerMap(kv._1) = innerMap.getOrElse(kv._1,0) + kv._2
+          innerMap
+        }
+      )
+
     }
+
 
     //获取 累加结果数据
     override def value: mutable.Map[String, Int] = resMap

@@ -50,10 +50,6 @@ object HotCategory10Analysis03 {
     //(品类,(点击,下单,支付))
 
     analysiRDD.sortBy(_._2._1,false).take(10).foreach(println)
-
-
-
-
   }
 
 }
