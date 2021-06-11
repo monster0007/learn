@@ -19,10 +19,11 @@ object RDDTest{
 
     spark.sparkContext.parallelize(seq).foreach(println)
     //scheduler.conf.getInt("spark.default.parallelism", totalCores)
-    val rdd = spark.sparkContext.makeRDD(seq)
+    val rdd = spark.sparkContext.makeRDD(seq,3)
+    //print(10/2)
     rdd.saveAsTextFile("output")
 
-    println(spark.sparkContext.textFile("",1))
+    //println(spark.sparkContext.textFile("",1))
     //spark.close()
 
   }

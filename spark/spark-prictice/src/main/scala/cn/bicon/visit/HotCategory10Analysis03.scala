@@ -1,5 +1,8 @@
 package cn.bicon.visit
 
+import java.io
+
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -39,17 +42,17 @@ object HotCategory10Analysis03 {
       }else{
         Nil
       }
-    })
+    }).foreach(println)
 
-    val analysiRDD = flaMapRDD.reduceByKey{
+   /* val analysiRDD = flaMapRDD.reduceByKey{
       case (t1,t2) =>{
         (t1._1 + t2._1, t1._2 + t2._2, t1._3 + t2._3)
       }
-    }
+    }*/
     //4.将统计结果进行分类 去top10
     //(品类,(点击,下单,支付))
 
-    analysiRDD.sortBy(_._2._1,false).take(10).foreach(println)
+    //analysiRDD.sortBy(_._2._1,false).take(10).foreach(println)
   }
 
 }
