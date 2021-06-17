@@ -15,13 +15,14 @@ object RDDTest{
       .config("spark.default.parallelism",5)// 设置并行度
       .getOrCreate()
 
-    val seq = Seq[Int](1, 2, 3, 4, 5)
+    val seq = Seq[Int](1, 2, 3, 4)
 
     spark.sparkContext.parallelize(seq).foreach(println)
     //scheduler.conf.getInt("spark.default.parallelism", totalCores)
-    val rdd = spark.sparkContext.makeRDD(seq,3)
+    val rdd = spark.sparkContext.makeRDD(seq,4)
+    val rdd2 = rdd.repartition(3)
     //print(10/2)
-    rdd.saveAsTextFile("output")
+    rdd2.saveAsTextFile("output")
 
     //println(spark.sparkContext.textFile("",1))
     //spark.close()
