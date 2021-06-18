@@ -33,7 +33,6 @@ object SparkStreaming_05State {
     resDS.print()
 
 
-
     ssc.start()
     ssc.awaitTermination()
 
