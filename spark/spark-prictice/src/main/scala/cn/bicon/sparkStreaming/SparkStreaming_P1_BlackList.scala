@@ -75,6 +75,8 @@ object SparkStreaming_P1_BlackList{
     //TODO 2如果用户点击没有超过阈值(30) 则更新黑名单
     //TODO 3更新之后的数据继续判读是否超过阈值 ,超过则加入黑名单
     ds.foreachRDD(rdd =>{
+      // rdd. foreach 方法每条数据都会创建一个连接
+      //可以使用foreachPartition 代替foreach ,按照每个分区遍历数据提升效率
       rdd.foreach{
         case((day, userid, adid), count)=>{
           if(count >= 30){    //TODO 1超出阈值(30) 加入黑名单
