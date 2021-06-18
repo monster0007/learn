@@ -37,6 +37,7 @@ object SparkStreaming_P1_MockData{
     while (true){
       val list = mockData
       list.foreach(line => {
+        println(line)
         var record = new ProducerRecord[String,String]("atguigu",line)
         producer.send(record)
       })
@@ -55,7 +56,7 @@ object SparkStreaming_P1_MockData{
     val city = List("上海","苏州","杭州","北京")
     val time = System.currentTimeMillis()
 
-    for(i <- 0 to 500) {
+    for(i <- 0 to  50) {
       val userid = new Random().nextInt(6) + 1
       val advid = new Random().nextInt(6) + 1
       listBuf.append(s"$time ${area(new Random().nextInt(3))} ${city(new Random().nextInt(3))} $userid $advid")
