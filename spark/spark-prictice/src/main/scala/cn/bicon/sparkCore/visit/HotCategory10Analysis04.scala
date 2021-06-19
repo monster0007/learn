@@ -24,8 +24,6 @@ import scala.collection.mutable
   *         支付(品类,(0,0,1))
   *         直接聚合
   **/
-//结果样例类
-case class HotCategory(cid: String,var clickCount: Int, var orderCount: Int, var payCount: Int)
 
 object HotCategory10Analysis04 {
   def main(args: Array[String]): Unit = {
@@ -79,6 +77,7 @@ object HotCategory10Analysis04 {
 
   }
 
+  case class HotCategory(cid: String,var clickCount: Int, var orderCount: Int, var payCount: Int)
   /***
     * 自定义累加器
     * IN : (品类ID,行为类型)
@@ -125,3 +124,4 @@ object HotCategory10Analysis04 {
   }
 
 }
+//结果样例类

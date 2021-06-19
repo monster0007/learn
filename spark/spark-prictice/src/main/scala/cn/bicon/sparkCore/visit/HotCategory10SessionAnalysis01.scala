@@ -1,4 +1,4 @@
-/*
+
 package cn.bicon.sparkCore.visit
 
 import org.apache.spark.rdd.RDD
@@ -19,7 +19,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   *         2.改变结构 (品类,(点击,下单,支付))
   *         直接用 reduceBykey 优化
   **/
-object HotCategory10Analysis02 {
+object HotCategory10SessionAnalysis01 {
   def main(args: Array[String]): Unit = {
     val sparkConf = new SparkConf().setMaster("local").setAppName("adtotal")
     val sc = new SparkContext(sparkConf)
@@ -109,4 +109,3 @@ object HotCategory10Analysis02 {
 
   }
 }
-*/
